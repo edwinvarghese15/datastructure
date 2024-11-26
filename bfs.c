@@ -6,7 +6,8 @@
 
 int vertex_count = 0;
 
-struct vertex {
+struct vertex
+{
     char data;
     bool visited;
 };
@@ -18,27 +19,34 @@ int rear = -1;
 int front = 0;
 int queue_count = 0;
 
-void enqueue(int data) {
-    if (rear < MAX - 1) {
+void enqueue(int data) 
+{
+    if (rear < MAX - 1) 
+    {
         queue[++rear] = data;
         queue_count++;
     }
 }
 
-int dequeue() {
-    if (front <= rear) {
+int dequeue() 
+{
+    if (front <= rear) 
+    {
         queue_count--;
         return queue[front++];
     }
     return -1; // Queue empty case
 }
 
-bool is_queue_empty() {
+bool is_queue_empty() 
+{
     return queue_count == 0;
 }
 
-void add_vertex(char data) {
-    if (vertex_count >= MAX) {
+void add_vertex(char data) 
+{
+    if (vertex_count >= MAX) 
+    {
         printf("Graph is full, cannot add more vertices.\n");
         return;
     }
@@ -49,7 +57,8 @@ void add_vertex(char data) {
     vertex_count++;
 }
 
-void add_edge(int start, int end) {
+void add_edge(int start, int end) 
+{
     if (start >= vertex_count || end >= vertex_count || start < 0 || end < 0) {
         printf("Invalid vertex indices!\n");
         return;
@@ -59,19 +68,23 @@ void add_edge(int start, int end) {
 }
 
 int adj_vertex(int vertex_get) {
-    for (int i = 0; i < vertex_count; i++) {
-        if (adj_matrix[vertex_get][i] == 1 && !graph[i]->visited) {
+    for (int i = 0; i < vertex_count; i++) 
+    {
+        if (adj_matrix[vertex_get][i] == 1 && !graph[i]->visited)
+        {
             return i;
         }
     }
     return -1;
 }
 
-void display_vertex(int pos) {
+void display_vertex(int pos) 
+{
     printf("%c -> ", graph[pos]->data);
 }
 
-void bfs(struct vertex *new, int start) {
+void bfs(struct vertex *new, int start) 
+{
     if (!new) {
         printf("\nNothing to display\n");
         return;
@@ -85,7 +98,8 @@ void bfs(struct vertex *new, int start) {
 
     int unvisited; // Declare unvisited outside the loop
 
-    while (!is_queue_empty()) {
+    while (!is_queue_empty()) 
+    {
         int pop_vertex = dequeue();
         while ((unvisited = adj_vertex(pop_vertex)) != -1) { // Fixed parentheses here
             graph[unvisited]->visited = true;
@@ -103,7 +117,8 @@ void bfs(struct vertex *new, int start) {
 
 void show() {
     printf("\n.................................\n");
-    for (int i = 0; i < vertex_count; i++) {
+    for (int i = 0; i < vertex_count; i++) 
+    {
         printf("Edge position of '%c' is %d\n", graph[i]->data, i);
     }
     printf(".................................\n");
@@ -111,23 +126,28 @@ void show() {
 
 void print_adj_matrix() {
     printf("\nAdjacency Matrix:\n");
-    for (int i = 0; i < vertex_count; i++) {
-        for (int j = 0; j < vertex_count; j++) {
+    for (int i = 0; i < vertex_count; i++) 
+    {
+        for (int j = 0; j < vertex_count; j++) 
+        {
             printf("%d ", adj_matrix[i][j]);
         }
         printf("\n");
     }
 }
 
-int main() {
+int main() 
+{
     int opt;
     char data;
     int edge_1, edge_2;
     int start;
 
     // Initialize adjacency matrix to 0 (no edges initially)
-    for (int i = 0; i < MAX; i++) {
-        for (int j = 0; j < MAX; j++) {
+    for (int i = 0; i < MAX; i++) 
+    {
+        for (int j = 0; j < MAX; j++) 
+        {
             adj_matrix[i][j] = 0;
         }
     }
@@ -135,7 +155,8 @@ int main() {
     do {
         printf("\n1) Add vertex \n2) Create edge \n3) Traversal \n4) Display adjacency matrix \n0) Exit \nChoose option: ");
         scanf("%d", &opt);
-        switch (opt) {
+        switch (opt) 
+        {
             case 1:
                 printf("\nEnter data to be added to vertex: ");
                 scanf(" %c", &data);
@@ -152,9 +173,11 @@ int main() {
             case 3:
                 printf("\nEnter starting vertex position: ");
                 scanf("%d", &start);
-                if (start < 0 || start >= vertex_count) {
+                if (start < 0 || start >= vertex_count) 
+                {
                     printf("\nInvalid vertex position!\n");
-                } else {
+                } else 
+                {
                     bfs(graph[start], start);
                 }
                 break;
