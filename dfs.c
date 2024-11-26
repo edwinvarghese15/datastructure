@@ -2,18 +2,21 @@
 #include <stdlib.h>
 
 
-struct Node {
+struct Node 
+{
     int dest;
     struct Node* next;
 };
 
 
-struct AdjList {
+struct AdjList 
+{
     struct Node* head;
 };
 
 
-struct Node* createNode(int dest) {
+struct Node* createNode(int dest) 
+{
     struct Node* newNode =
       (struct Node*)malloc(sizeof(struct Node));
     newNode->dest = dest;
@@ -22,7 +25,8 @@ struct Node* createNode(int dest) {
 }
 
 
-void DFSRec(struct AdjList adj[], int visited[], int s) {
+void DFSRec(struct AdjList adj[], int visited[], int s) 
+{
    
     visited[s] = 1;
 
@@ -31,9 +35,11 @@ void DFSRec(struct AdjList adj[], int visited[], int s) {
 
     
     struct Node* current = adj[s].head;
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         int dest = current->dest;
-        if (!visited[dest]) {
+        if (!visited[dest]) 
+        {
             DFSRec(adj, visited, dest);
         }
         current = current->next;
@@ -41,14 +47,16 @@ void DFSRec(struct AdjList adj[], int visited[], int s) {
 }
 
 
-void DFS(struct AdjList adj[], int V, int s) {
+void DFS(struct AdjList adj[], int V, int s)
+{
    
     int visited[5] = {0}; 
     DFSRec(adj, visited, s);
 }
 
 
-void addEdge(struct AdjList adj[], int s, int t) {
+void addEdge(struct AdjList adj[], int s, int t) 
+{
    
     struct Node* newNode = createNode(t);
     newNode->next = adj[s].head;
@@ -60,14 +68,16 @@ void addEdge(struct AdjList adj[], int s, int t) {
     adj[t].head = newNode;
 }
 
-int main() {
+int main() 
+{
     int V = 5;
 
 
     struct AdjList adj[V];
 
    
-    for (int i = 0; i < V; i++) {
+    for (int i = 0; i < V; i++)
+        {
         adj[i].head = NULL;
     }
     
@@ -76,7 +86,8 @@ int main() {
     int edges[][2] = {{1, 2}, {1, 0}, {2, 0}, {2, 3}, {2, 4}};
 
    
-    for (int i = 0; i < E; i++) {
+    for (int i = 0; i < E; i++) 
+    {
         addEdge(adj, edges[i][0], edges[i][1]);
     }
 
